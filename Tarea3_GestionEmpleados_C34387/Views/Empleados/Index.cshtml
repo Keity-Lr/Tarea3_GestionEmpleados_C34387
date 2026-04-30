@@ -1,0 +1,125 @@
+﻿@using Tarea3_GestionEmpleados_C34387.Models
+@model IEnumerable<Empleado>
+
+<div class="container mt-4">
+    <!-- Encabezado con el botón de agregar bien visible -->
+    <div class="row mb-4 align-items-end">
+        <div class="col-md-8">
+            <h2 class="display-6 fw-bold text-dark mb-0">Directorio de Colaboradores</h2>
+            <p class="text-muted">Gestión de información y estados del personal.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <!-- Botón de Agregar: Ahora más grande y fácil de encontrar -->
+            <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm px-4 py-2 rounded-pill">
+                <i class="bi bi-person-plus-fill me-2"></i>Nuevo Registro
+            </a>
+        </div>
+    </div>
+
+    <!-- Sección de Buscador -->
+    <div class="card shadow-sm border-0 mb-4 bg-white">
+        <div class="card-body p-3">
+            <form method="get" class="row g-2">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" name="busqueda" class="form-control border-0 bg-light"
+                               value="@ViewBag.Busqueda" placeholder="Buscar por nombre o departamento..." />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-dark w-100 rounded-3">Filtrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de Empleados -->
+    <div class="table-responsive rounded-3 shadow-sm bg-white">
+        <table class="table table-hover align-middle mb-0">
+            <thead style="background-color: #f8f9fa;">
+                <tr class="text-secondary small text-uppercase">
+                    <th class="ps-4 py-3">Colaborador</th>
+                    <th class="py-3">Departamento</th>
+                    <th class="py-3 text-center">Salario</th>
+                    <th class="py-3 text-center">Estado</th>
+                    <th class="py-3 text-center pe-4">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var e in Model)
+                {
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary fw-bold d-flex align-items-center justify-content-center me-3"
+                                     style="width: 42px; height: 42px; font-size: 0.9rem;">
+                                    @e.Nombre.Substring(0, 1)
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">@e.NombreCompleto</div> <!-- -->
+                                    <small class="text-muted">ID: #@e.Id</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark border fw-normal">@e.Departamento</span>
+                        </td>
+                        <td class="text-center fw-medium text-dark">
+                            @e.Salario.ToString("C0") <!-- -->
+                        </td>
+                        <td class="text-center">
+                            @if (e.Activo)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Activo
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill">
+                                    <i class="bi bi-x-circle-fill me-1"></i> Inactivo
+                                </span>
+                            }
+                        </td>
+                        <td class="text-center pe-4">
+                            <div class="d-flex justify-content-center gap-2">
+                                <!-- Botones de acción visibles y redondeados -->
+                                <a asp-action="Edit" asp-route-id="@e.Id"
+                                       class="btn btn-sm btn-outline-primary rounded-pill px-3 shadow-sm border-2">
+                                    <i class="bi bi-pencil-fill me-1"></i> Editar
+                                </a>
+
+                                <form asp-action="ToggleActivo" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@e.Id" />
+                                    <button type="submit"
+                                            class="btn btn-sm rounded-pill px-3 shadow-sm border-2 @(e.Activo ? "btn-outline-danger" : "btn-outline-success")">
+                                        <i class="bi @(e.Activo ? "bi-person-x-fill" : "bi-person-check-fill") me-1"></i>
+                                        @(e.Activo ? "Baja" : "Alta")
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginación con estilo moderno (Punto 7) -->
+    <div class="d-flex justify-content-between align-items-center mt-4 pb-5">
+        <p class="text-muted small mb-0">Mostrando página @ViewBag.PaginaActual de @ViewBag.TotalPaginas</p>
+        <nav aria-label="Navegación de empleados">
+            <ul class="pagination mb-0">
+                <li class="page-item @(ViewBag.PaginaActual <= 1 ? "disabled" : "")">
+                    <a class="page-link border-0 shadow-sm rounded-start-pill px-4"
+                       href="/Empleados?pagina=@(ViewBag.PaginaActual - 1)&busqueda=@ViewBag.Busqueda">Anterior</a>
+                </li>
+                <li class="page-item @(ViewBag.PaginaActual >= ViewBag.TotalPaginas ? "disabled" : "")">
+                    <a class="page-link border-0 shadow-sm rounded-end-pill px-4"
+                       href="/Empleados?pagina=@(ViewBag.PaginaActual + 1)&busqueda=@ViewBag.Busqueda">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

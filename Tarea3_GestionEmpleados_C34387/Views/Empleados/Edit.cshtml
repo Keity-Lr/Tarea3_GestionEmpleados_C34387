@@ -1,0 +1,72 @@
+﻿@model Tarea3_GestionEmpleados_C34387.Models.Empleado
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <!-- Borde suave y color pastel -->
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header border-0 py-4 text-center" style="background-color: #fff4e5; color: #856404;">
+                    <i class="bi bi-pencil-square h2"></i>
+                    <h3 class="fw-bold mb-0">Actualizar Información</h3>
+                    <p class="mb-0 text-muted small">Modificando perfil de @Model.NombreCompleto</p>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Nombre" class="form-label text-uppercase small fw-bold text-muted"></label>
+                                <input asp-for="Nombre" class="form-control form-control-lg border-0 bg-light" />
+                                <span asp-validation-for="Nombre" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Apellidos" class="form-label text-uppercase small fw-bold text-muted"></label>
+                                <input asp-for="Apellidos" class="form-control form-control-lg border-0 bg-light" />
+                                <span asp-validation-for="Apellidos" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Departamento" class="form-label text-uppercase small fw-bold text-muted"></label>
+                                <select asp-for="Departamento" class="form-select form-select-lg border-0 bg-light">
+                                    <option value="TI">Tecnologías de Información</option>
+                                    <option value="RRHH">Recursos Humanos</option>
+                                    <option value="Ventas">Ventas y Mercadeo</option>
+                                    <option value="Finanzas">Contabilidad y Finanzas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Salario" class="form-label text-uppercase small fw-bold text-muted"></label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text border-0 bg-light">₡</span>
+                                    <input asp-for="Salario" class="form-control border-0 bg-light" />
+                                </div>
+                                <span asp-validation-for="Salario" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <div class="form-check form-switch custom-switch p-3 bg-light rounded-3">
+                                <input class="form-check-input ms-0 me-3" asp-for="Activo" type="checkbox" role="switch">
+                                <label class="form-check-label fw-bold text-dark" asp-for="Activo">Colaborador en estado activo</label>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-8">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm fw-bold py-3" style="background-color: #fb8c00; border: none;">
+                                    Confirmar Cambios
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100 py-3">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

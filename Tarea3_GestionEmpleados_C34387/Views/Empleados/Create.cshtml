@@ -1,0 +1,58 @@
+﻿@model Tarea3_GestionEmpleados_C34387.Models.Empleado
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0">Registrar Nuevo Empleado</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label fw-bold"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Apellidos" class="form-label fw-bold"></label>
+                            <input asp-for="Apellidos" class="form-control" />
+                            <span asp-validation-for="Apellidos" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label asp-for="Departamento" class="form-label fw-bold"></label>
+                                <input asp-for="Departamento" class="form-control" />
+                                <span asp-validation-for="Departamento" class="text-danger small"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="Salario" class="form-label fw-bold"></label>
+                                <input asp-for="Salario" class="form-control" />
+                                <span asp-validation-for="Salario" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fecha de Ingreso</label>
+                            <input asp-for="FechaIngreso" type="date" class="form-control" />
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" asp-for="Activo" type="checkbox" />
+                            <label class="form-check-label" asp-for="Activo">Empleado Activo</label>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">Guardar Empleado</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
